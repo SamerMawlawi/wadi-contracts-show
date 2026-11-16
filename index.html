@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>منصة العقود · وادي مكة</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<!-- ===================== THE STAGE (always 1920 x 1080, scaled to fit) ===================== -->
+<div id="stage" dir="rtl">
+  <div id="bg"></div>
+  <canvas id="cloud"></canvas>
+
+  <div id="scenes">
+
+    <!-- 1 · المشكلة -->
+    <section class="scene" id="s-problem">
+      <div class="col-text">
+        <div class="kicker a" id="pr-kicker">لماذا منصة للعقود؟</div>
+        <div class="swap">
+          <div class="stat a" id="pr-0"><span class="num" id="pr-n0">0</span>
+            <span class="stat-label">أسبوعاً في المتوسط من تقديم العرض إلى توقيع عقد عالي التعقيد</span>
+            <span class="stat-sub">العقد البسيط: <span class="ltr">4.4</span> أسابيع · متوسط التعقيد: <span class="ltr">11.6</span> أسبوعاً</span></div>
+          <div class="stat a" id="pr-1"><span class="num" id="pr-n1">0</span>
+            <span class="stat-label">متوسط ما يتآكل من قيمة العقود عالمياً بسبب ضعف إدارتها</span>
+            <span class="stat-sub">أفضل المنظمات أداءً: نحو <span class="ltr">3%</span></span></div>
+        </div>
+      </div>
+      <div class="source a" id="pr-src0">المصدر: World Commerce &amp; Contracting · 2023 Benchmark Study · عقود محلية، متوسط عالمي</div>
+      <div class="source a" id="pr-src1">المصدر: World Commerce &amp; Contracting و Deloitte · دراسة The ROI of Contracting Excellence · 2023</div>
+    </section>
+
+    <!-- 2 · الحل وفكرة وادي مكة -->
+    <section class="scene" id="s-solution">
+      <div class="col-text">
+        <div class="kicker a" id="so-kicker">الحل</div>
+        <div class="swap">
+          <div class="x" id="so-a"><h1 class="headline sp" id="so-head">عقودك، <em class="plain">بوضوح.</em></h1>
+            <div class="lede a" id="so-lede">فريق واحد. صلاحيات واضحة. ومساحة عمل مشتركة.</div></div>
+          <div class="a" id="so-b"><img class="logo" src="assets/brand/logo-white.png" alt="شركة وادي مكة للتقنية">
+            <span class="stat-label">مملوكة لجامعة أم القرى · تأسست عام <span class="ltr">2012</span></span></div>
+          <div class="a" id="so-c"><h2 class="bigline">من القالب إلى <em>التوقيع</em></h2>
+            <span class="stat-label">في مكان واحد</span></div>
+        </div>
+      </div>
+      <div class="source a" id="so-src1">العبارتان من شاشة الدخول في المنصة نفسها</div>
+      <div class="source a" id="so-src2">المصدر: سعوديبيديا · «شركة وادي مكة للتقنية»</div>
+    </section>
+
+    <!-- 3 · البنية وسير العمل -->
+    <section class="scene" id="s-arch">
+      <div class="row-top">
+        <div class="kicker a" id="ar-kicker">البنية وسير العمل</div>
+        <div class="swap">
+          <h1 class="headline sp" id="ar-head">أربع خطوات، <em>مسار واحد</em></h1>
+          <h1 class="headline sp" id="ar-head2">أربع <em>حالات</em> لكل عقد</h1>
+          <h1 class="headline sp" id="ar-head3">ثلاث <em>طبقات</em></h1>
+        </div>
+      </div>
+      <div class="pin step" id="pin-s1"><span><b>1</b>بيانات العقد</span></div>
+      <div class="pin step" id="pin-s2"><span><b>2</b>البنود</span></div>
+      <div class="pin step" id="pin-s3"><span><b>3</b>المراجعة الذكية</span></div>
+      <div class="pin step" id="pin-s4"><span><b>4</b>المعاينة والرفع</span></div>
+
+      <div class="flow x" id="ar-flow">
+        <svg viewBox="0 0 1500 330" width="1500" height="330">
+          <path class="fl-line" id="fl-a1" pathLength="1" d="M1145 70 H912"/><path class="fl-head" id="fl-h1" d="M900 70 l18 -10 v20 z"/>
+          <path class="fl-line" id="fl-a2" pathLength="1" d="M595 70 H362"/><path class="fl-head" id="fl-h2" d="M350 70 l18 -10 v20 z"/>
+          <path class="fl-line" id="fl-a3" pathLength="1" d="M750 114 Q750 250 868 250"/><path class="fl-head" id="fl-h3" d="M880 250 l-18 -10 v20 z"/>
+          <path class="fl-line" id="fl-a4" pathLength="1" d="M1180 250 Q1300 250 1300 126"/><path class="fl-head" id="fl-h4" d="M1300 114 l-10 18 h20 z"/>
+          <g class="fl-chip" id="fl-c1"><rect x="1150" y="28" width="300" height="84" rx="42" stroke="#9aa3b8"/><text x="1300" y="82" text-anchor="middle">مسودة</text></g>
+          <g class="fl-chip" id="fl-c2"><rect x="600" y="28" width="300" height="84" rx="42" stroke="#4cc4f0"/><text x="750" y="82" text-anchor="middle">قيد المراجعة</text></g>
+          <g class="fl-chip" id="fl-c3"><rect x="50" y="28" width="300" height="84" rx="42" stroke="#8dc63f"/><text x="200" y="82" text-anchor="middle">معتمدة</text></g>
+          <g class="fl-chip" id="fl-c4"><rect x="880" y="208" width="300" height="84" rx="42" stroke="#f2b03c"/><text x="1030" y="262" text-anchor="middle">معادة للتعديل</text></g>
+        </svg>
+      </div>
+
+      <div class="pin layer" id="pin-l1"><span>الواجهة<i>تطبيق <span class="ltr">React</span> في المتصفح · مستضاف على <span class="ltr">Netlify</span></i></span></div>
+      <div class="pin layer" id="pin-l2"><span>الخادم وقاعدة البيانات<i><span class="ltr">Supabase</span> · قاعدة <span class="ltr">PostgreSQL</span> · الدخول والصلاحيات</i></span></div>
+      <div class="pin layer" id="pin-l3"><span>محرك المراجعة<i>محاكاة محلية، أو <span class="ltr">Gemini</span> عبر دالة على الخادم</i></span></div>
+      <div class="source a" id="ar-src">المصدر: واجهة المنصة نفسها (لقطات من النسخة التجريبية)</div>
+      <div class="source a" id="ar-src2">المصدر: فحص شيفرة النسخة التجريبية كما تُحمَّل في المتصفح · 15 نوفمبر 2026</div>
+    </section>
+
+    <!-- 4 · العرض التطبيقي -->
+    <section class="scene" id="s-demo">
+      <div class="screen x" id="dm-screen">
+        <div class="film" id="dm-film">
+          <img src="assets/shots/01-login.png" alt="" style="left:0">
+          <img src="assets/shots/02-dashboard.png" alt="" style="left:1400px">
+          <img src="assets/shots/03-contracts.png" alt="" style="left:2800px">
+          <div class="fill" id="dm-fill" style="left:4200px">
+            <img src="assets/shots/fill/base.png" alt="" style="left:0;top:0;width:2560px;height:5000px">
+            <img class="fp" data-f="1" src="assets/shots/fill/p01-0.png" alt="" style="left:282px;top:1067px;width:832px;height:71px">
+            <img class="fp" data-f="1" src="assets/shots/fill/p01-1.png" alt="" style="left:1959px;top:126px;width:13px;height:13px">
+            <img class="fp" data-f="1" src="assets/shots/fill/p01-2.png" alt="" style="left:1488px;top:346px;width:827px;height:61px">
+            <img class="fp" data-f="1" src="assets/shots/fill/p01-3.png" alt="" style="left:1414px;top:692px;width:947px;height:52px">
+            <img class="fp" data-f="1" src="assets/shots/fill/p01-4.png" alt="" style="left:1894px;top:856px;width:172px;height:56px">
+            <img class="fp" data-f="1" src="assets/shots/fill/p01-5.png" alt="" style="left:2335px;top:1003px;width:13px;height:13px">
+            <img class="fp" data-f="1" src="assets/shots/fill/p01-6.png" alt="" style="left:1898px;top:1056px;width:439px;height:40px">
+            <img class="fp" data-f="2" src="assets/shots/fill/p02-0.png" alt="" style="left:282px;top:1067px;width:832px;height:71px">
+            <img class="fp" data-f="2" src="assets/shots/fill/p02-1.png" alt="" style="left:283px;top:1853px;width:831px;height:93px">
+            <img class="fp" data-f="2" src="assets/shots/fill/p02-2.png" alt="" style="left:282px;top:3435px;width:832px;height:229px">
+            <img class="fp" data-f="2" src="assets/shots/fill/p02-3.png" alt="" style="left:1414px;top:102px;width:544px;height:38px">
+            <img class="fp" data-f="2" src="assets/shots/fill/p02-4.png" alt="" style="left:2255px;top:692px;width:116px;height:39px">
+            <img class="fp" data-f="2" src="assets/shots/fill/p02-5.png" alt="" style="left:1894px;top:856px;width:188px;height:56px">
+            <img class="fp" data-f="2" src="assets/shots/fill/p02-6.png" alt="" style="left:1860px;top:1207px;width:477px;height:52px">
+            <img class="fp" data-f="3" src="assets/shots/fill/p03-0.png" alt="" style="left:283px;top:1288px;width:831px;height:468px">
+            <img class="fp" data-f="3" src="assets/shots/fill/p03-1.png" alt="" style="left:283px;top:1853px;width:831px;height:93px">
+            <img class="fp" data-f="3" src="assets/shots/fill/p03-2.png" alt="" style="left:282px;top:3146px;width:832px;height:518px">
+            <img class="fp" data-f="3" src="assets/shots/fill/p03-3.png" alt="" style="left:2255px;top:692px;width:117px;height:56px">
+            <img class="fp" data-f="3" src="assets/shots/fill/p03-4.png" alt="" style="left:2066px;top:1501px;width:25px;height:25px">
+            <img class="fp" data-f="3" src="assets/shots/fill/p03-5.png" alt="" style="left:2095px;top:1803px;width:241px;height:46px">
+            <img class="fp" data-f="4" src="assets/shots/fill/p04-0.png" alt="" style="left:345px;top:1288px;width:583px;height:468px">
+            <img class="fp" data-f="4" src="assets/shots/fill/p04-1.png" alt="" style="left:280px;top:3208px;width:834px;height:209px">
+            <img class="fp" data-f="4" src="assets/shots/fill/p04-2.png" alt="" style="left:2255px;top:693px;width:117px;height:69px">
+            <img class="fp" data-f="4" src="assets/shots/fill/p04-3.png" alt="" style="left:2066px;top:1501px;width:25px;height:25px">
+            <img class="fp" data-f="4" src="assets/shots/fill/p04-4.png" alt="" style="left:2015px;top:1963px;width:321px;height:46px">
+            <img class="fp" data-f="5" src="assets/shots/fill/p05-0.png" alt="" style="left:791px;top:1563px;width:137px;height:38px">
+            <img class="fp" data-f="5" src="assets/shots/fill/p05-1.png" alt="" style="left:356px;top:3268px;width:750px;height:43px">
+            <img class="fp" data-f="5" src="assets/shots/fill/p05-2.png" alt="" style="left:2201px;top:2125px;width:135px;height:39px">
+            <img class="fp" data-f="6" src="assets/shots/fill/p06-0.png" alt="" style="left:339px;top:1288px;width:248px;height:468px">
+            <img class="fp" data-f="6" src="assets/shots/fill/p06-1.png" alt="" style="left:282px;top:3268px;width:831px;height:149px">
+            <img class="fp" data-f="6" src="assets/shots/fill/p06-2.png" alt="" style="left:2255px;top:693px;width:117px;height:75px">
+            <img class="fp" data-f="6" src="assets/shots/fill/p06-3.png" alt="" style="left:2066px;top:1501px;width:24px;height:25px">
+            <img class="fp" data-f="6" src="assets/shots/fill/p06-4.png" alt="" style="left:2085px;top:2403px;width:251px;height:40px">
+            <img class="fp" data-f="7" src="assets/shots/fill/p07-0.png" alt="" style="left:403px;top:1643px;width:161px;height:39px">
+            <img class="fp" data-f="7" src="assets/shots/fill/p07-1.png" alt="" style="left:353px;top:3322px;width:759px;height:44px">
+            <img class="fp" data-f="7" src="assets/shots/fill/p07-2.png" alt="" style="left:2255px;top:693px;width:27px;height:28px">
+            <img class="fp" data-f="7" src="assets/shots/fill/p07-3.png" alt="" style="left:2309px;top:743px;width:57px;height:25px">
+            <img class="fp" data-f="7" src="assets/shots/fill/p07-4.png" alt="" style="left:1920px;top:1486px;width:171px;height:56px">
+            <img class="fp" data-f="7" src="assets/shots/fill/p07-5.png" alt="" style="left:1359px;top:2564px;width:178px;height:32px">
+            <img class="fp" data-f="8" src="assets/shots/fill/p08-0.png" alt="" style="left:330px;top:1288px;width:273px;height:468px">
+            <img class="fp" data-f="8" src="assets/shots/fill/p08-1.png" alt="" style="left:282px;top:3322px;width:831px;height:95px">
+            <img class="fp" data-f="8" src="assets/shots/fill/p08-2.png" alt="" style="left:2255px;top:693px;width:117px;height:75px">
+            <img class="fp" data-f="8" src="assets/shots/fill/p08-3.png" alt="" style="left:1920px;top:1486px;width:187px;height:56px">
+            <img class="fp" data-f="8" src="assets/shots/fill/p08-4.png" alt="" style="left:2056px;top:2725px;width:281px;height:46px">
+            <img class="fp" data-f="9" src="assets/shots/fill/p09-0.png" alt="" style="left:441px;top:1563px;width:140px;height:37px">
+            <img class="fp" data-f="9" src="assets/shots/fill/p09-1.png" alt="" style="left:336px;top:3373px;width:685px;height:44px">
+            <img class="fp" data-f="9" src="assets/shots/fill/p09-2.png" alt="" style="left:2280px;top:2888px;width:57px;height:36px">
+            <img class="fp" data-f="10" src="assets/shots/fill/p10-0.png" alt="" style="left:283px;top:1370px;width:831px;height:384px">
+            <img class="fp" data-f="10" src="assets/shots/fill/p10-1.png" alt="" style="left:283px;top:1853px;width:831px;height:93px">
+            <img class="fp" data-f="10" src="assets/shots/fill/p10-2.png" alt="" style="left:283px;top:2368px;width:831px;height:95px">
+            <img class="fp" data-f="10" src="assets/shots/fill/p10-3.png" alt="" style="left:282px;top:3146px;width:832px;height:518px">
+            <img class="fp" data-f="10" src="assets/shots/fill/p10-4.png" alt="" style="left:2255px;top:693px;width:117px;height:75px">
+            <img class="fp" data-f="10" src="assets/shots/fill/p10-5.png" alt="" style="left:1978px;top:3066px;width:187px;height:56px">
+            <img class="fp" data-f="10" src="assets/shots/fill/p10-6.png" alt="" style="left:2152px;top:3391px;width:169px;height:40px">
+            <img class="fp" data-f="10" src="assets/shots/fill/p10-7.png" alt="" style="left:2138px;top:3591px;width:13px;height:13px">
+            <img class="fp" data-f="11" src="assets/shots/fill/p11-0.png" alt="" style="left:676px;top:2401px;width:41px;height:29px">
+            <img class="fp" data-f="11" src="assets/shots/fill/p11-1.png" alt="" style="left:345px;top:3562px;width:755px;height:40px">
+            <img class="fp" data-f="11" src="assets/shots/fill/p11-2.png" alt="" style="left:1765px;top:3392px;width:43px;height:32px">
+            <img class="fp" data-f="12" src="assets/shots/fill/p12-0.png" alt="" style="left:432px;top:2399px;width:64px;height:38px">
+            <img class="fp" data-f="12" src="assets/shots/fill/p12-1.png" alt="" style="left:345px;top:3562px;width:657px;height:40px">
+            <img class="fp" data-f="12" src="assets/shots/fill/p12-2.png" alt="" style="left:1626px;top:3391px;width:69px;height:41px">
+            <img class="fp" data-f="13" src="assets/shots/fill/p13-0.png" alt="" style="left:0px;top:1853px;width:1264px;height:3147px">
+            <img class="fp" data-f="13" src="assets/shots/fill/p13-1.png" alt="" style="left:1363px;top:693px;width:1008px;height:62px">
+            <img class="fp" data-f="13" src="assets/shots/fill/p13-2.png" alt="" style="left:1805px;top:3562px;width:189px;height:56px">
+            <img class="fp" data-f="13" src="assets/shots/fill/p13-3.png" alt="" style="left:2328px;top:3707px;width:14px;height:13px">
+            <img class="fp" data-f="13" src="assets/shots/fill/p13-4.png" alt="" style="left:1941px;top:3761px;width:118px;height:35px">
+            <img class="fp" data-f="13" src="assets/shots/fill/p13-5.png" alt="" style="left:2530px;top:3838px;width:30px;height:47px">
+            <img class="fp" data-f="13" src="assets/shots/fill/p13-6.png" alt="" style="left:1264px;top:4864px;width:1272px;height:13px">
+            <img class="fp" data-f="14" src="assets/shots/fill/p14-0.png" alt="" style="left:283px;top:1933px;width:831px;height:223px">
+            <img class="fp" data-f="14" src="assets/shots/fill/p14-1.png" alt="" style="left:283px;top:2690px;width:831px;height:398px">
+            <img class="fp" data-f="14" src="assets/shots/fill/p14-2.png" alt="" style="left:282px;top:3722px;width:832px;height:810px">
+            <img class="fp" data-f="14" src="assets/shots/fill/p14-3.png" alt="" style="left:1980px;top:690px;width:392px;height:82px">
+            <img class="fp" data-f="14" src="assets/shots/fill/p14-4.png" alt="" style="left:2024px;top:4226px;width:189px;height:56px">
+            <img class="fp" data-f="14" src="assets/shots/fill/p14-5.png" alt="" style="left:2275px;top:4372px;width:13px;height:13px">
+            <img class="fp" data-f="14" src="assets/shots/fill/p14-6.png" alt="" style="left:1938px;top:4427px;width:44px;height:32px">
+            <img class="fp" data-f="15" src="assets/shots/fill/p15-0.png" alt="" style="left:130px;top:4298px;width:30px;height:49px">
+            <img class="fp" data-f="15" src="assets/shots/fill/p15-1.png" alt="" style="left:282px;top:4425px;width:835px;height:171px">
+            <img class="fp" data-f="15" src="assets/shots/fill/p15-2.png" alt="" style="left:249px;top:4609px;width:902px;height:391px">
+            <img class="fp" data-f="15" src="assets/shots/fill/p15-3.png" alt="" style="left:2059px;top:4587px;width:277px;height:39px">
+          </div>
+          <img src="assets/shots/06-clauses.png" alt="" style="left:5600px">
+          <img src="assets/shots/05-review.png" alt="" style="left:7000px">
+          <img id="dm-s1" src="assets/shots/08-send-1.png" alt="" style="left:8400px;height:675px">
+          <img class="st" id="dm-s2" src="assets/shots/08-send-2.png" alt="" style="left:8400px;height:675px">
+          <img class="st" id="dm-s3" src="assets/shots/08-send-3.png" alt="" style="left:8400px;height:675px">
+          <img id="dm-r1" src="assets/shots/09-rev-1.png" alt="" style="left:9800px;height:675px">
+          <img class="st" id="dm-r2" src="assets/shots/09-rev-2.png" alt="" style="left:9800px;height:1594px">
+          <img class="st" id="dm-r3" src="assets/shots/09-rev-3.png" alt="" style="left:9800px;height:675px">
+          <img class="st" id="dm-r4" src="assets/shots/09-rev-4.png" alt="" style="left:9800px;height:675px">
+          <img src="assets/shots/07-sign.png" alt="" style="left:11200px">
+          <div class="tap" id="tap1" style="left:8520px;top:643px"></div>
+          <div class="tap" id="tap2" style="left:9143px;top:289px"></div>
+          <div class="tap" id="tap3" style="left:10756px;top:525px"></div>
+          <div class="tap" id="tap4" style="left:9874px;top:1563px"></div>
+          <div class="tap" id="tap5" style="left:10528px;top:302px"></div>
+        </div>
+      </div>
+      <div class="demo-text">
+        <div class="kicker a" id="dm-kicker">العرض التطبيقي</div>
+        <div class="swap">
+          <div class="cap a" id="dm-c1"><b>01</b><h2>الدخول</h2><span>للفريق المصرّح له فقط</span></div>
+          <div class="cap a" id="dm-c2"><b>02</b><h2>لوحة المتابعة</h2><span>كل العقود وحالاتها</span></div>
+          <div class="cap a" id="dm-c3"><b>03</b><h2>العقود</h2><span>بحث وتصفية ومتابعة</span></div>
+          <div class="cap a" id="dm-c4"><b>04</b><h2>بيانات العقد</h2><div class="swap"><span id="dm-c4a">تعبئة حقول قالب التوريد التجريبي</span><span id="dm-c4b">المعاينة تمتلئ مع كل إدخال</span></div></div>
+          <div class="cap a" id="dm-c5"><b>05</b><h2>البنود</h2><span>ثابت · قابل للتعديل · مولّد</span></div>
+          <div class="cap a" id="dm-c6"><b>06</b><h2>المراجعة الذكية</h2><span>ملاحظات على نص العقد</span></div>
+          <div class="cap a" id="dm-c7"><b>07</b><h2>الرفع للمراجع</h2><span>بضغطة واحدة</span></div>
+          <div class="cap a" id="dm-c8"><b>08</b><h2>المراجع القانوني</h2><span>يقرأ البنود ويعلّق عليها</span></div>
+          <div class="cap a" id="dm-c9"><b>09</b><h2>الاعتماد</h2><span>تجريبي · يصبح العقد للقراءة فقط</span></div>
+          <div class="cap a" id="dm-c10"><b>10</b><h2>التوقيع</h2><span>تجريبي · برمز تحقق</span></div>
+        </div>
+      </div>
+      <div class="source a" id="dm-src">لقطات من النسخة التجريبية للمنصة · البيانات الظاهرة تجريبية</div>
+    </section>
+
+    <!-- 5 · الخلاصة والتوصيات -->
+    <section class="scene" id="s-end">
+      <div class="col-text tight">
+        <div class="kicker a" id="en-kicker">التوصيات</div>
+        <div class="rec a" id="en-1"><h2 class="bigline">توقيع <em>موثوق</em></h2><span class="stat-label">ربط التوقيع بمزوّد تصديق رقمي مرخّص</span></div>
+        <div class="rec a" id="en-2"><h2 class="bigline">قوالب <em>معتمدة</em></h2><span class="stat-label">اعتماد قانوني للقوالب التجريبية</span></div>
+        <div class="rec a" id="en-3"><h2 class="bigline">مراجعة <em>حيّة</em></h2><span class="stat-label">من المحاكاة المحلية إلى المراجعة الحية، مع قياس دقتها</span></div>
+      </div>
+      <div class="center">
+        <img class="logo small a" id="en-logo" src="assets/brand/logo-white.png" alt="">
+        <h1 class="headline huge sp" id="en-head">عقودك، <em class="plain">بوضوح.</em></h1>
+      </div>
+      <div class="source a" id="en-src">توصيات مقترحة، مبنية على ما يظهر في النسخة التجريبية</div>
+    </section>
+
+  </div>
+
+  <div id="vignette"></div>
+  <div id="grain"></div>
+  <div id="pageno"></div>
+  <div id="flash"></div>
+</div>
+
+<!-- ===================== PRESENTING TOOLS ===================== -->
+<div id="blank"></div>
+<div id="progress"><i id="progress-fill"></i></div>
+<div id="tester"></div>
+<div id="jumpbox"></div>
+
+<div id="help" class="overlay" dir="rtl">
+  <div class="help-card">
+    <h2>أزرار التحكّم</h2>
+    <table>
+      <tr><td><kbd>→</kbd> <kbd>↓</kbd> <kbd>PageDown</kbd> <kbd>Space</kbd> <kbd>N</kbd> <kbd>Enter</kbd> · نقرة يسار</td><td>النقرة التالية</td></tr>
+      <tr><td><kbd>←</kbd> <kbd>↑</kbd> <kbd>PageUp</kbd> <kbd>Backspace</kbd> · نقرة يمين</td><td>رجوع</td></tr>
+      <tr><td><kbd>F</kbd> <kbd>F5</kbd></td><td>ملء الشاشة: تشغيل / إيقاف</td></tr>
+      <tr><td><kbd>B</kbd> أو <kbd>.</kbd></td><td>شاشة سوداء</td></tr>
+      <tr><td><kbd>W</kbd> أو <kbd>,</kbd></td><td>شاشة بيضاء</td></tr>
+      <tr><td><kbd>P</kbd></td><td>فتح شاشة المقدّم (الملاحظات والمؤقّت)</td></tr>
+      <tr><td><kbd>G</kbd> أو <kbd>O</kbd></td><td>نظرة عامة على كل النقرات</td></tr>
+      <tr><td>أرقام ثم <kbd>Enter</kbd></td><td>الانتقال إلى رقم الصفحة</td></tr>
+      <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>أول نقرة / آخر نقرة</td></tr>
+      <tr><td><kbd>H</kbd> أو <kbd>?</kbd></td><td>هذه المساعدة</td></tr>
+      <tr><td><kbd>D</kbd></td><td>فاحص الأزرار: تشغيل / إيقاف</td></tr>
+      <tr><td><kbd>L</kbd></td><td>خط التقدّم: تشغيل / إيقاف</td></tr>
+      <tr><td><kbd>Esc</kbd></td><td>إغلاق أي نافذة</td></tr>
+    </table>
+    <p>أثناء الشاشة السوداء أو البيضاء، أول ضغطة تعيد الصورة فقط ولا تغيّر الشريحة.<br>الحروف تعمل سواء كانت لوحة المفاتيح عربية أو إنجليزية.</p>
+  </div>
+</div>
+
+<div id="overview" class="overlay">
+  <div class="ov-top" dir="rtl">
+    <b>نظرة عامة</b>
+    <span>الأسهم أو جهاز التحكّم للتنقّل · Enter أو Space للانتقال · Esc للإغلاق</span>
+    <span id="overview-note">بعض النقرات بلا صورة: شغّل الملف «tools / Make snapshots» مرتين بالفأرة لتحديث الصور.</span>
+  </div>
+  <div id="overview-grid"></div>
+</div>
+
+<div id="loader"><i></i></div>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="assets/thumbs/thumbs.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/shapes.js"></script>
+<script src="js/engine.js"></script>
+<!-- extra scene files (js/scenes-*.js) go here, before deck.js -->
+<script src="js/deck.js"></script>
+</body>
+</html>

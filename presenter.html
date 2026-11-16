@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>شاشة المقدّم</title>
+<link rel="stylesheet" href="css/presenter.css">
+</head>
+<body>
+
+<header id="bar">
+  <div class="cell"><small>النقرة</small><b id="p-click">– / –</b></div>
+  <div class="cell"><small>الصفحة</small><b id="p-page">–</b></div>
+  <div class="cell wide"><small id="p-name">–</small><b id="p-title">–</b></div>
+  <div class="cell"><small>الساعة</small><b id="p-clock">--:--</b></div>
+  <div class="cell"><small>المؤقّت</small><b id="p-timer">00:00</b></div>
+</header>
+
+<main>
+  <section id="screens">
+    <div class="panel">
+      <h3>الآن <span>ما يراه الجمهور</span></h3>
+      <div class="frame"><iframe id="f-now" src="index.html?mode=mirror" tabindex="-1"></iframe></div>
+      <div id="p-bar"><i id="p-fill"></i></div>
+    </div>
+    <div class="panel">
+      <h3>النقرة التالية <span id="p-next-name">–</span></h3>
+      <div class="frame small"><iframe id="f-next" src="index.html?mode=preview" tabindex="-1"></iframe><div id="p-end">نهاية العرض</div></div>
+    </div>
+  </section>
+
+  <section id="notes-wrap">
+    <h3>ملاحظات المتحدّث</h3>
+    <div id="p-notes">افتح هذه النافذة بالضغط على P داخل العرض.</div>
+    <div id="buttons">
+      <button id="b-back">السابق</button>
+      <button id="b-next" class="main">التالي</button>
+      <button id="b-black">شاشة سوداء</button>
+      <button id="b-reset">تصفير المؤقّت</button>
+    </div>
+    <div id="p-link">غير متصل بالعرض</div>
+  </section>
+</main>
+
+<script>
+/* presenter.html — talks to the show (window.opener) and to its two embedded copies
+   through window.postMessage, which works on file:// pages. */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var show = window.opener || null;
+  var beats = [], index = 0, blank = null, linked = false, lastSeen = 0;
+  var ready = { mirror: false, preview: false };
+  var t0 = null;   // timer start (ms), null = not started
+
+  function post(win, msg) { msg.deck = 1; try { win.postMessage(msg, '*'); } catch (e) { } }
+  function cmd(c) { if (show) post(show, { type: 'cmd', cmd: c }); }
+  function hello() { if (show && !show.closed) post(show, { type: 'hello' }); }
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function tick() {
+    var d = new Date();
+    $('p-clock').textContent = pad(d.getHours()) + ':' + pad(d.getMinutes());
+    var s = t0 === null ? 0 : Math.floor((Date.now() - t0) / 1000);
+    $('p-timer').textContent = (s >= 3600 ? Math.floor(s / 3600) + ':' : '') + pad(Math.floor(s / 60) % 60) + ':' + pad(s % 60);
+    var ok = linked && Date.now() - lastSeen < 9000;
+    $('p-link').textContent = ok ? 'متصل بالعرض' : 'غير متصل بالعرض — أعد فتح هذه النافذة بالضغط على P داخل العرض';
+    $('p-link').className = ok ? 'ok' : '';
+  }
+
+  function render() {
+    if (!beats.length) return;
+    var b = beats[index], total = beats.length - 1;
+    $('p-click').textContent = index + ' / ' + total;
+    $('p-page').textContent = b.page;
+    $('p-title').textContent = b.title;
+    $('p-name').textContent = b.name;
+    $('p-notes').textContent = b.notes || (index === 0 ? 'شاشة البداية. اضغط «التالي» لتبدأ.' : '—');
+    $('p-fill').style.transform = 'scaleX(' + (total ? index / total : 0) + ')';
+    var nx = beats[index + 1];
+    $('p-next-name').textContent = nx ? nx.name : '';
+    $('p-end').style.display = nx ? 'none' : 'flex';
+    $('b-black').classList.toggle('on', blank === 'black');
+  }
+  function pushFrames(animate) {
+    if (ready.mirror) {
+      post($('f-now').contentWindow, { type: 'goto', index: index, animate: animate });
+      post($('f-now').contentWindow, { type: 'blank', value: blank });
+    }
+    if (ready.preview && beats[index + 1]) post($('f-next').contentWindow, { type: 'goto', index: index + 1, animate: false });
+  }
+
+  window.addEventListener('message', function (e) {
+    var m = e.data;
+    if (!m || m.deck !== 1) return;
+    if (m.type === 'embed-ready') { ready[m.mode] = true; pushFrames(false); return; }
+    if (m.type === 'state' && e.source === show) {
+      linked = true; lastSeen = Date.now();
+      if (m.beats) beats = m.beats;
+      var moved = m.index !== index;
+      index = m.index; blank = m.blank;
+      if (m.kind === 'nav' && t0 === null) t0 = Date.now();     // the timer starts on the first click
+      render();
+      if (m.kind === 'blank') { if (ready.mirror) post($('f-now').contentWindow, { type: 'blank', value: blank }); }
+      else if (moved || m.kind === 'init') pushFrames(m.kind === 'nav' && m.animate);
+    }
+  });
+
+  // The Next, Back and black-screen keys work here too and drive the show.
+  window.addEventListener('keydown', function (e) {
+    if (e.ctrlKey || e.altKey || e.metaKey) return;
+    var c = e.code, a = null;
+    if (c === 'ArrowRight' || c === 'ArrowDown' || c === 'PageDown' || c === 'Space' || c === 'KeyN' || c === 'Enter') a = 'next';
+    else if (c === 'ArrowLeft' || c === 'ArrowUp' || c === 'PageUp' || c === 'Backspace') a = 'back';
+    else if (c === 'KeyB' || c === 'Period') a = 'black';
+    else if (c === 'KeyW' || c === 'Comma') a = 'white';
+    else if (c === 'F5') { e.preventDefault(); return; }
+    if (a) { e.preventDefault(); cmd(a); }
+  });
+  $('b-next').onclick = function () { cmd('next'); this.blur(); };
+  $('b-back').onclick = function () { cmd('back'); this.blur(); };
+  $('b-black').onclick = function () { cmd('black'); this.blur(); };
+  $('b-reset').onclick = function () { t0 = null; tick(); this.blur(); };
+
+  // Say hello every few seconds, so the link comes back by itself if the show is reloaded.
+  hello(); setInterval(hello, 3000);
+  tick(); setInterval(tick, 500);
+})();
+</script>
+</body>
+</html>

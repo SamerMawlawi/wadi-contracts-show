@@ -1,0 +1,27 @@
+/* written by tools/make-thumbnails.js — which picture shows which click */
+window.DECK_THUMBS = {
+  "start": "start.jpg",
+  "problem": "problem.jpg",
+  "problem-cost": "problem-cost.jpg",
+  "solution": "solution.jpg",
+  "solution-wadi": "solution-wadi.jpg",
+  "solution-one-place": "solution-one-place.jpg",
+  "flow-steps": "flow-steps.jpg",
+  "flow-states": "flow-states.jpg",
+  "arch-layers": "arch-layers.jpg",
+  "demo-login": "demo-login.jpg",
+  "demo-dashboard": "demo-dashboard.jpg",
+  "demo-contracts": "demo-contracts.jpg",
+  "demo-data": "demo-data.jpg",
+  "demo-preview": "demo-preview.jpg",
+  "demo-clauses": "demo-clauses.jpg",
+  "demo-review": "demo-review.jpg",
+  "demo-send": "demo-send.jpg",
+  "demo-reviewer": "demo-reviewer.jpg",
+  "demo-approve": "demo-approve.jpg",
+  "demo-sign": "demo-sign.jpg",
+  "rec-sign": "rec-sign.jpg",
+  "rec-templates": "rec-templates.jpg",
+  "rec-review": "rec-review.jpg",
+  "close": "close.jpg"
+};

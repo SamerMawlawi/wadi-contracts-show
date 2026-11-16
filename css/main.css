@@ -1,0 +1,194 @@
+/* ---------- fonts (all local, no internet needed) ---------- */
+@font-face { font-family: "Inter Tight"; font-weight: 500; src: url(../assets/fonts/inter-tight-500.woff2) format("woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 700; src: url(../assets/fonts/inter-tight-700.woff2) format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url(../assets/fonts/instrument-serif-400-italic.woff2) format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; src: url(../assets/fonts/jetbrains-mono-400.woff2) format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url(../assets/fonts/jetbrains-mono-500.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 300; src: url(../assets/fonts/plex-arabic-300.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 500; src: url(../assets/fonts/plex-arabic-500.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 700; src: url(../assets/fonts/plex-arabic-700.woff2) format("woff2"); }
+@font-face { font-family: "Amiri"; font-weight: 400; src: url(../assets/fonts/amiri-400.woff2) format("woff2"); }
+@font-face { font-family: "Amiri"; font-weight: 400; font-style: italic; src: url(../assets/fonts/amiri-400-italic.woff2) format("woff2"); }
+@font-face { font-family: "Amiri"; font-weight: 700; src: url(../assets/fonts/amiri-700.woff2) format("woff2"); }
+
+:root {
+  /* Latin letters and digits come from the first font, Arabic from the second */
+  --f-display: "Inter Tight", "IBM Plex Sans Arabic", sans-serif;   /* headlines */
+  --f-serif: "Instrument Serif", "Amiri", serif;                    /* emphasis */
+  --f-mono: "JetBrains Mono", "IBM Plex Sans Arabic", monospace;    /* kickers, labels, sources */
+  --ink: #f3f1ea;
+  --dim: rgba(243, 241, 234, .62);
+  --accent: #f2b03c;
+  --cool: #4cc4f0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; color: var(--ink); }
+body { font-family: var(--f-display); -webkit-font-smoothing: antialiased; user-select: none; }
+body.idle { cursor: none; }
+
+/* ---------- stage ---------- */
+#stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; overflow: hidden;
+  transform-origin: 50% 50%; transform: translate(-50%, -50%); background: #04050a; }
+#bg, #cloud, #scenes, #vignette, #grain, #flash { position: absolute; inset: 0; }
+#cloud { width: 1920px; height: 1080px; }
+#vignette { pointer-events: none; background: radial-gradient(ellipse at 50% 50%, transparent 52%, rgba(0, 0, 0, .62) 100%); }
+#grain { pointer-events: none; opacity: .055; mix-blend-mode: overlay; inset: -256px; background-size: 256px 256px;
+  animation: grain .6s steps(6) infinite; }
+@keyframes grain { to { transform: translate(-128px, 96px); } }
+#flash { background: #000; opacity: 0; pointer-events: none; }
+#pageno { position: absolute; right: 44px; bottom: 34px; font: 500 18px var(--f-mono); color: rgba(255, 255, 255, .38);
+  direction: ltr; font-variant-numeric: tabular-nums; }
+
+/* ---------- scenes and type ---------- */
+.scene { position: absolute; inset: 0; pointer-events: none; }
+.col-text { position: absolute; right: 150px; top: 0; bottom: 0; width: 900px; display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start; gap: 34px; }
+/* the mono font's space is wide; pull Arabic words in labels back together */
+.kicker, .decoded, .source { word-spacing: -.3em; }
+.kicker { font: 500 28px var(--f-mono); color: var(--accent); }
+.headline { font: 700 118px/1.28 var(--f-display); letter-spacing: 0; text-wrap: balance; }
+.headline em, .em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--accent); font-size: 1.14em; line-height: 1; }
+.lede { font: 300 38px/1.7 var(--f-display); color: var(--dim); max-width: 820px; }
+.stat { display: flex; align-items: baseline; gap: 26px; }
+.num { font: 700 150px/1 var(--f-display); font-variant-numeric: tabular-nums; direction: ltr; letter-spacing: -.02em; }
+.source { position: absolute; right: 150px; bottom: 40px; font: 400 18px var(--f-mono); color: rgba(255, 255, 255, .5); }
+.decoded { font: 500 30px var(--f-mono); color: var(--cool); }
+
+/* text helper pieces */
+.w, .wi, .c, .tw { display: inline-block; }
+.wi.lat { direction: ltr; }   /* Latin letters and digits keep their own order */
+.wi, .c { will-change: transform, opacity; }
+.tw { visibility: hidden; }
+.dc { position: relative; display: inline-block; }
+.dc-hold { visibility: hidden; }
+.dc-live { position: absolute; top: 0; inset-inline-start: 0; white-space: nowrap; }
+
+/* ---------- tools ---------- */
+#blank { position: fixed; inset: 0; background: #000; opacity: 0; visibility: hidden; z-index: 50; }
+#progress { position: fixed; left: 0; right: 0; bottom: 0; height: 3px; z-index: 40; display: none; background: rgba(255, 255, 255, .08); }
+#progress.open { display: block; }
+#progress i { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); transition: transform .5s ease; }
+#tester { position: fixed; right: 18px; bottom: 64px; z-index: 60; display: none; direction: rtl; gap: 14px; align-items: center;
+  padding: 10px 16px; border-radius: 8px; background: rgba(10, 12, 20, .88); border: 1px solid rgba(255, 255, 255, .18);
+  font: 400 16px var(--f-mono); color: var(--ink); }
+#tester.open { display: flex; }
+#tester b { color: var(--accent); font-weight: 500; direction: ltr; }
+#jumpbox { position: fixed; left: 50%; bottom: 60px; transform: translateX(-50%); z-index: 60; display: none; direction: rtl;
+  padding: 12px 26px; border-radius: 10px; background: rgba(10, 12, 20, .9); border: 1px solid rgba(255, 255, 255, .2);
+  font: 500 26px var(--f-mono); }
+#jumpbox.open { display: block; }
+
+.overlay { position: fixed; inset: 0; z-index: 70; display: none; background: rgba(4, 5, 10, .93); backdrop-filter: blur(10px); cursor: default; }
+.overlay.open { display: block; }
+body.idle .overlay { cursor: default; }
+
+#help.open { display: flex; align-items: center; justify-content: center; }
+.help-card { width: min(1180px, 92vw); max-height: 92vh; overflow: auto; padding: 40px 48px; border-radius: 16px;
+  background: #0d101a; border: 1px solid rgba(255, 255, 255, .12); }
+.help-card h2 { font: 700 34px var(--f-display); margin-bottom: 22px; }
+.help-card table { width: 100%; border-collapse: collapse; font: 300 23px/1.5 var(--f-display); }
+.help-card td { padding: 9px 0; border-bottom: 1px solid rgba(255, 255, 255, .08); vertical-align: middle; }
+.help-card td:last-child { color: var(--dim); padding-inline-start: 24px; width: 44%; }
+.help-card p { margin-top: 20px; font: 300 17px/1.8 var(--f-display); color: var(--dim); }
+kbd { display: inline-block; direction: ltr; font: 500 18px var(--f-mono); padding: 3px 9px; margin: 0 2px; border-radius: 6px;
+  background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .18); }
+
+#overview { overflow: auto; padding: 0 44px 60px; }
+.ov-top { position: sticky; top: 0; z-index: 2; display: flex; gap: 26px; align-items: baseline; flex-wrap: wrap; padding: 26px 0 18px;
+  background: linear-gradient(rgba(4, 5, 10, .98) 70%, transparent); font: 300 17px var(--f-display); color: var(--dim); }
+.ov-top b { font: 700 28px var(--f-display); color: var(--ink); }
+#overview-note { color: var(--accent); }
+.ov-group { margin-top: 22px; }
+.ov-group header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; }
+.ov-group header b { font: 500 22px var(--f-mono); color: var(--accent); min-width: 34px; }
+.ov-group header span { font: 500 22px var(--f-display); }
+.ov-group header i { font: 400 15px var(--f-mono); font-style: normal; color: var(--dim); }
+.ov-row { display: flex; flex-wrap: wrap; gap: 16px; }
+.ov-item { position: relative; width: 352px; height: 198px; padding: 0; border-radius: 8px; overflow: hidden; cursor: pointer;
+  background: #10131e; border: 2px solid rgba(255, 255, 255, .1); color: var(--ink); }
+.ov-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ov-name { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; padding: 12px;
+  font: 500 17px var(--f-mono); color: var(--dim); }
+.ov-item em { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 10px 6px; text-align: left; font: 400 14px var(--f-mono);
+  font-style: normal; color: rgba(255, 255, 255, .8); background: linear-gradient(transparent, rgba(0, 0, 0, .8)); }
+.ov-item.now { border-color: var(--accent); }
+.ov-item.sel { outline: 3px solid #fff; outline-offset: 2px; }
+
+#loader { position: fixed; inset: 0; z-index: 90; background: #04050a; display: flex; align-items: center; justify-content: center;
+  transition: opacity .6s ease, visibility .6s; }
+#loader i { width: 34px; height: 34px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .15); border-top-color: var(--accent);
+  animation: spin 1s linear infinite; }
+#loader.done { opacity: 0; visibility: hidden; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* copies inside the presenter view and the snapshot maker: no tools, no pointer */
+body.embedded #tester, body.embedded #progress, body.embedded #jumpbox, body.embedded .overlay { display: none !important; }
+body.embedded { cursor: default; }
+body.mode-thumb #grain { animation: none; }
+body.mode-thumb #loader { transition: none; }
+
+/* ---------- the talk's pages ---------- */
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+.col-text.tight { gap: 26px; }
+.stat { flex-direction: column; align-items: flex-start; gap: 4px; }
+.stat-label { display: block; font: 300 32px/1.5 var(--f-display); color: var(--dim); max-width: 860px; }
+.stat-sub { font: 500 26px/1.5 var(--f-display); color: var(--accent); margin-top: 6px; }
+.bigline { font: 700 92px/1.3 var(--f-display); }
+.bigline em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--accent); font-size: 1.14em; line-height: 1; }
+.headline.huge { font-size: 170px; text-align: center; }
+.center { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 30px; align-items: center; justify-content: center; padding-bottom: 250px; }
+.row-top { position: absolute; top: 96px; right: 150px; left: 150px; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.row-top .headline { font-size: 96px; }
+.swap { display: grid; }
+.swap > * { grid-area: 1 / 1; align-self: center; }
+.row-top .swap > * { align-self: start; }
+.logo { display: block; width: 420px; height: auto; margin-bottom: 26px; }
+.logo.small { width: 230px; margin: 0; }
+
+/* labels pinned to dots of the cloud */
+.pin { position: absolute; left: 0; top: 0; width: 0; height: 0; opacity: 0; visibility: hidden; }
+.pin span { position: absolute; white-space: nowrap; }
+.pin.step span { left: 0; top: 78px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font: 500 34px var(--f-display); color: var(--ink); }
+.pin.step b { font: 500 22px var(--f-mono); color: var(--accent); }
+.pin.layer span { left: 64px; top: -34px; display: flex; flex-direction: column; gap: 2px; font: 700 38px/1.3 var(--f-display); }
+.pin.layer i { font: 300 24px/1.4 var(--f-display); font-style: normal; color: var(--dim); }
+.pin.layer::before { content: ""; position: absolute; left: 6px; top: 0; width: 44px; height: 2px; background: rgba(255, 255, 255, .55); }
+
+/* the four states of a contract (SVG, drawn by a watcher) */
+.flow { position: absolute; left: 210px; top: 640px; width: 1500px; height: 330px; direction: ltr; }
+.fl-chip rect { fill: rgba(10, 14, 28, .78); stroke-width: 2.5; }
+.fl-chip text { font: 500 34px var(--f-display); fill: var(--ink); }
+.fl-line { fill: none; stroke: rgba(255, 255, 255, .7); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; }
+.fl-head { fill: rgba(255, 255, 255, .85); }
+
+/* the demonstration: a screen with a camera flying over the screenshots */
+.screen { position: absolute; left: 110px; top: 211px; width: 1200px; height: 657px; overflow: hidden; border-radius: 10px;
+  background: #05070d; box-shadow: 0 0 0 1px rgba(255, 255, 255, .16), 0 30px 90px rgba(0, 0, 0, .6); }
+.film { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.film img { position: absolute; top: 0; width: 1200px; height: 657px; object-fit: cover; object-position: 50% 0; }
+.demo-text { position: absolute; left: 1386px; right: 96px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center;
+  align-items: flex-start; gap: 30px; }
+.cap { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.cap b { font: 500 26px var(--f-mono); color: var(--cool); direction: ltr; }
+.cap h2 { font: 700 66px/1.25 var(--f-display); }
+.cap span { font: 300 30px/1.55 var(--f-display); color: var(--dim); }
+
+/* recommendations */
+.rec { display: flex; flex-direction: column; align-items: flex-start; }
+.rec .bigline { font-size: 76px; }
+.rec .stat-label { font-size: 30px; }
+
+.headline em.plain, .bigline em.plain { font-family: var(--f-display); font-style: normal; font-weight: 700; font-size: 1em; line-height: inherit; }
+#so-a .lede { margin-top: 26px; }
+.pin.layer span span { position: static; display: inline; font: inherit; color: var(--ink); unicode-bidi: isolate; direction: ltr; }
+
+/* page 4: the form being filled = one tall base picture + small patches that appear field by field */
+.film .fill { position: absolute; top: 0; width: 2560px; height: 5000px; transform-origin: 0 0; transform: scale(.46875); }
+.film .fill img { position: absolute; object-fit: fill; }
+.film .fill .fp { opacity: 0; }
+
+/* page 4: pictures stacked in one slot (shown one over the other by a watcher) and the "press" marker */
+.film .st { opacity: 0; }
+.tap { position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; border: 3px solid var(--accent); background: rgba(242, 176, 60, .28); }
